@@ -6,13 +6,13 @@ class ListItem extends Component {
   render() {
     const { name } = this.props.employee;
     const { titleStyle } = styles;
-    return {
+    return (
       <CardSection>
-        <Text style={titleStyle}>
+        <Text style={titleStyle} >
           { name }
         </Text>
       </CardSection>
-    };
+    );
   };
 };
 

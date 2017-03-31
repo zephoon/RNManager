@@ -24,15 +24,20 @@ export const loginUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then( user => loginUserSuccess(dispatch, user))
-      .catch(() => {
+      .then(user => loginUserSuccess(dispatch, user))
+      .catch((error) => {
+        console.log('signInWithEmailAndPassword'+error);
+
         firebase.auth().createUserWithEmailAndPassword(email, password)
           .then(user => loginUserSuccess(dispatch, user))
-          .catch(() => loginUserFail(dispatch));
+          .catch((error) => {
+            console.log('createUserWithEmailAndPassword'+error);
+            loginUserFail(dispatch)
+          });
       });
   };
 };
-const loginUserFail = (dispatch, error) => {
+const loginUserFail = (dispatch) => {
   dispatch({
     type: LOGIN_USER_FAIL
   });

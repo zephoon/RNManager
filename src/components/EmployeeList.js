@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { connect } from 'react-native';
-import { employeesFetch } from '../actions';
+import { connect } from 'react-redux';
+import { employeeFetch } from '../actions';
 import { ListView } from 'react-native';
 import ListItem from './ListItem';
 
 class EmployeeList extends Component {
   componentWillMount() {
-    this.props.employeesFetch();
+    this.props.employeeFetch();
     this.createDataSource(this.props);
   }
   componentWillReceiveProps(nextProps) {
@@ -26,7 +26,7 @@ class EmployeeList extends Component {
     return(
       <ListView
         enableEmptySections
-        dataSource={this.props.dataSource}
+        dataSource={this.dataSource}
         renderRow={this.renderRow}
       />
     );
@@ -40,4 +40,4 @@ const mapStateToProps = state => {
   return { employees };
 };
 
-export default connect(mapStateToProps, { employeesFetch })(EmployeeList);
+export default connect(mapStateToProps, { employeeFetch })(EmployeeList);
